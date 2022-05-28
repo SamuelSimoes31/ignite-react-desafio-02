@@ -34,7 +34,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const addProduct = async (productId: number) => {
     try {
-      const newCart = [...cart];
+      const newCart = cart.map(product => ({ ...product }));
       let productIndex = newCart.findIndex(p => p.id === productId);
       if (productIndex === -1) {
         productIndex = newCart.length;
