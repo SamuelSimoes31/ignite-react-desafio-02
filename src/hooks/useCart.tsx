@@ -52,7 +52,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       try {
         const response = await api.get<Stock>(`/stock/${productId}`);
         const { amount } = response.data;
-        if(newCart[productIndex].amount <= amount){
+        if (newCart[productIndex].amount <= amount) {
           setCart(newCart);
           localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
         } else {
@@ -68,9 +68,17 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const newCart = [...cart];
+      let productIndex = newCart.findIndex(p => p.id === productId);
+      if (newCart[productIndex].amount > 1) {
+        newCart[productIndex].amount--;
+      } else {
+        newCart.splice(productIndex, 1);
+      }
+      setCart(newCart);
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
-      // TODO
+      toast.error('Erro na remoção do produto');
     }
   };
 
