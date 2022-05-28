@@ -70,11 +70,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     try {
       const newCart = [...cart];
       let productIndex = newCart.findIndex(p => p.id === productId);
-      if (newCart[productIndex].amount > 1) {
-        newCart[productIndex].amount--;
-      } else {
-        newCart.splice(productIndex, 1);
-      }
+      newCart.splice(productIndex, 1);
       setCart(newCart);
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
